@@ -211,6 +211,32 @@ a { text-decoration: none; color: inherit; }
 .social-icon-link:hover::before { width: 120%; height: 120%; }
 .social-icon-link:hover i { color: #0a0f1c; }
 
+/* ═══════════ GOTHIC PORTFOLIO ICON ═══════════ */
+.gothic-portfolio-icon {
+  position: relative;
+  background: rgba(20, 5, 5, 0.5) !important;
+  border-color: rgba(139, 0, 0, 0.4) !important;
+}
+
+.gothic-portfolio-icon::before {
+  background: linear-gradient(135deg, #8b0000, #4a0000) !important;
+}
+
+.gothic-portfolio-icon i {
+  color: #c9a84c !important;
+  font-size: 1.1rem;
+}
+
+.gothic-portfolio-icon:hover {
+  border-color: #c9a84c !important;
+  box-shadow: 0 12px 28px rgba(139, 0, 0, 0.5), 0 0 20px rgba(201, 168, 76, 0.3) !important;
+  transform: translateY(-5px);
+}
+
+.gothic-portfolio-icon:hover i {
+  color: #ff4444 !important;
+}
+
 .hero-lang-badges { display: flex; gap: 0.6rem; justify-content: center; flex-wrap: wrap; margin-top: 2rem; }
 .lang-badge {
   background: rgba(255,255,255,0.07); backdrop-filter: blur(8px);
