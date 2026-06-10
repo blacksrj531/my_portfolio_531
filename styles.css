@@ -150,7 +150,6 @@ a { text-decoration: none; color: inherit; }
 
 .hero-title span { color: var(--color-gold); font-weight: 600; }
 
-/* Prompt Engineer highlight with AI gradient */
 .prompt-engineer-highlight {
   background: linear-gradient(135deg, var(--color-ai-blue) 0%, var(--color-ai-purple) 100%);
   -webkit-background-clip: text;
@@ -211,7 +210,6 @@ a { text-decoration: none; color: inherit; }
 .social-icon-link:hover::before { width: 120%; height: 120%; }
 .social-icon-link:hover i { color: #0a0f1c; }
 
-/* ═══════════ GOTHIC PORTFOLIO ICON ═══════════ */
 .gothic-portfolio-icon {
   position: relative;
   background: rgba(20, 5, 5, 0.5) !important;
@@ -286,7 +284,6 @@ a { text-decoration: none; color: inherit; }
   background: var(--color-gold); margin: 1rem auto 0; border-radius: 2px;
 }
 
-/* ───── About ───── */
 .about-text {
   font-size: clamp(0.9rem, 1.5vw, 1.1rem);
   color: var(--color-text-secondary);
@@ -298,7 +295,6 @@ a { text-decoration: none; color: inherit; }
   border-radius: 2rem; font-weight: 600; font-size: 0.9rem; display: inline-block;
 }
 
-/* ───── Services ───── */
 .services-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -319,7 +315,6 @@ a { text-decoration: none; color: inherit; }
 .pricing-text { text-align: center; margin-top: 2rem; font-weight: 500; font-size: clamp(0.85rem, 1.3vw, 1rem); }
 .pricing-amount { color: var(--color-gold-dark); }
 
-/* ───── Experience ───── */
 .experience-item {
   background: var(--color-white); border-left: 5px solid var(--color-gold);
   padding: 1.5rem; margin-bottom: 1.5rem;
@@ -338,7 +333,6 @@ a { text-decoration: none; color: inherit; }
 .exp-description { margin-top: 0.5rem; font-size: 0.9rem; color: var(--color-text-secondary); }
 .exp-linkedin { font-size: 0.85rem; }
 
-/* ───── Skills ───── */
 .skills-categories { display: flex; flex-direction: column; gap: 2rem; }
 .skills-category-title {
   font-size: 1rem; font-weight: 700; color: var(--color-dark-blue);
@@ -358,7 +352,6 @@ a { text-decoration: none; color: inherit; }
   border-color: var(--color-dark-blue); transform: translateY(-2px);
 }
 
-/* ═══════════ AI SKILL TAGS ═══════════ */
 .skill-tag-ai {
   background: linear-gradient(135deg, var(--color-ai-dark) 0%, #16213e 100%);
   color: #e2e8f0;
@@ -529,6 +522,103 @@ a { text-decoration: none; color: inherit; }
 @keyframes spotifyPulse {
   0%, 100% { transform: scale(1); opacity: 1; text-shadow: 0 0 0 rgba(29,185,84,0); }
   50% { transform: scale(1.15); opacity: 0.85; text-shadow: 0 0 20px rgba(29,185,84,0.6); }
+}
+
+/* ═══════════ GALAXY INTERIORS CARD ═══════════ */
+.galaxy-card {
+  background: #0a0a1a;
+  border-color: #1a1a3a;
+}
+
+.galaxy-card:hover {
+  border-color: #6366f1;
+  box-shadow: 0 28px 48px rgba(99, 102, 241, 0.3), 0 0 40px rgba(168, 85, 247, 0.15);
+}
+
+.galaxy-project-image {
+  background: linear-gradient(135deg, #0a0a2e 0%, #1a1050 30%, #0d1b3e 100%) !important;
+}
+
+.galaxy-project-image::before {
+  background: rgba(99, 102, 241, 0.08) !important;
+}
+
+.galaxy-project-image::after {
+  background: rgba(168, 85, 247, 0.1) !important;
+}
+
+.galaxy-card:hover .galaxy-project-image {
+  background: linear-gradient(135deg, #1a1050 0%, #0a0a2e 30%, #0d1b3e 100%) !important;
+}
+
+.galaxy-card:hover .galaxy-project-image::before {
+  background: rgba(99, 102, 241, 0.15) !important;
+}
+
+.galaxy-card:hover .galaxy-project-image::after {
+  background: rgba(168, 85, 247, 0.18) !important;
+}
+
+.galaxy-project-image .project-icon-main {
+  color: #818cf8;
+  font-size: 3.2rem;
+}
+
+.galaxy-card:hover .galaxy-project-image .project-icon-main {
+  color: #a78bfa;
+  filter: drop-shadow(0 0 16px rgba(139, 92, 246, 0.5));
+  animation: galaxySpin 1.5s ease infinite alternate;
+}
+
+@keyframes galaxySpin {
+  0% { transform: scale(1) rotate(0deg); }
+  100% { transform: scale(1.25) rotate(10deg); }
+}
+
+.galaxy-card .project-title {
+  color: #e0e7ff;
+}
+
+.galaxy-card:hover .project-title {
+  color: #818cf8;
+}
+
+.galaxy-card .project-description {
+  color: #a5b4fc;
+}
+
+.galaxy-card .project-tag {
+  background: #1a1a3a;
+  color: #a5b4fc;
+  border: 1px solid #2d2d5a;
+}
+
+.galaxy-card:hover .project-tag {
+  background: #1e1b4b;
+  color: #c4b5fd;
+  border-color: #818cf8;
+}
+
+.galaxy-card .project-content {
+  background: #0a0a1a;
+}
+
+.galaxy-overlay {
+  background: rgba(10, 10, 30, 0.92) !important;
+}
+
+.galaxy-overlay i {
+  color: #818cf8 !important;
+  animation: galaxyPulse 1.5s ease-in-out infinite;
+}
+
+.galaxy-overlay span {
+  color: #c4b5fd !important;
+}
+
+@keyframes galaxyPulse {
+  0%, 100% { transform: scale(1); opacity: 1; text-shadow: 0 0 0 rgba(99, 102, 241, 0); }
+  50% { transform: scale(1.15); opacity: 0.85; text-shadow: 0 0 25px rgba(139, 92, 246, 0.7); }
 }
 
 /* ═══════════ EDUCATION ═══════════ */
