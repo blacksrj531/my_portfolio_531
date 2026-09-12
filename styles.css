@@ -583,6 +583,103 @@ a { text-decoration: none; color: inherit; }
   50% { transform: scale(1.15); opacity: 0.85; text-shadow: 0 0 25px rgba(74, 222, 128, 0.7); }
 }
 
+/* ═══════════ ZUNEIFY CARD ═══════════ */
+.zuneify-card {
+  background: #0a0d1c;
+  border-color: #1a1d3a;
+}
+
+.zuneify-card:hover {
+  border-color: #a855f7;
+  box-shadow: 0 28px 48px rgba(168, 85, 247, 0.3), 0 0 40px rgba(192, 132, 252, 0.15);
+}
+
+.zuneify-project-image {
+  background: linear-gradient(135deg, #0a0d1c 0%, #1a0f35 30%, #0a1a2e 100%) !important;
+}
+
+.zuneify-project-image::before {
+  background: rgba(168, 85, 247, 0.08) !important;
+}
+
+.zuneify-project-image::after {
+  background: rgba(192, 132, 252, 0.1) !important;
+}
+
+.zuneify-card:hover .zuneify-project-image {
+  background: linear-gradient(135deg, #1a0f35 0%, #0a0d1c 30%, #0a1a2e 100%) !important;
+}
+
+.zuneify-card:hover .zuneify-project-image::before {
+  background: rgba(168, 85, 247, 0.15) !important;
+}
+
+.zuneify-card:hover .zuneify-project-image::after {
+  background: rgba(192, 132, 252, 0.18) !important;
+}
+
+/* Zuneify custom logo image */
+.zuneify-logo-img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  position: relative;
+  z-index: 1;
+  transition: all 0.45s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  filter: drop-shadow(0 0 8px rgba(192, 132, 252, 0.4));
+}
+
+.zuneify-card:hover .zuneify-logo-img {
+  transform: scale(1.25) rotate(-5deg);
+  filter: drop-shadow(0 0 20px rgba(168, 85, 247, 0.7)) brightness(1.15);
+}
+
+.zuneify-card .project-title {
+  color: #f3e8ff;
+}
+
+.zuneify-card:hover .project-title {
+  color: #c084fc;
+}
+
+.zuneify-card .project-description {
+  color: #d8b4fe;
+}
+
+.zuneify-card .project-tag {
+  background: #1a1d3a;
+  color: #d8b4fe;
+  border: 1px solid #2d2d5a;
+}
+
+.zuneify-card:hover .project-tag {
+  background: #1e1440;
+  color: #e9d5ff;
+  border-color: #a855f7;
+}
+
+.zuneify-card .project-content {
+  background: #0a0d1c;
+}
+
+.zuneify-overlay {
+  background: rgba(10, 13, 28, 0.92) !important;
+}
+
+.zuneify-overlay i {
+  color: #c084fc !important;
+  animation: zuneifyGlow 1.5s ease-in-out infinite;
+}
+
+.zuneify-overlay span {
+  color: #e9d5ff !important;
+}
+
+@keyframes zuneifyGlow {
+  0%, 100% { transform: scale(1); opacity: 1; text-shadow: 0 0 0 rgba(168, 85, 247, 0); }
+  50% { transform: scale(1.15); opacity: 0.85; text-shadow: 0 0 25px rgba(192, 132, 252, 0.7); }
+}
+
 /* ═══════════ SAAS WORKFLOW CARD ═══════════ */
 .saas-card { background: #0a0f1c; border-color: #1a2540; }
 .saas-card:hover { border-color: #f97316; box-shadow: 0 28px 48px rgba(249, 115, 22, 0.3), 0 0 40px rgba(251, 146, 60, 0.15); }
@@ -835,6 +932,7 @@ a { text-decoration: none; color: inherit; }
   .whatsapp-btn { bottom: 20px; left: 20px; }
   .call-btn { bottom: 20px; right: 20px; }
   .floating-btn-tooltip { display: none; }
+  .zuneify-logo-img { width: 80px; height: 80px; }
 }
 
 @media (max-width: 480px) {
@@ -850,6 +948,7 @@ a { text-decoration: none; color: inherit; }
   .floating-btn { width: 46px; height: 46px; font-size: 1.2rem; }
   .whatsapp-btn { bottom: 16px; left: 16px; }
   .call-btn { bottom: 16px; right: 16px; }
+  .zuneify-logo-img { width: 70px; height: 70px; }
 }
 
 @media (min-width: 1400px) {
