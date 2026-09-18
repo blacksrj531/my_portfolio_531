@@ -187,6 +187,68 @@ a { text-decoration: none; color: inherit; }
 .btn-outline { background: transparent; border: 2px solid rgba(255,255,255,0.4); color: var(--color-white); }
 .btn-outline:hover { border-color: var(--color-gold); color: var(--color-gold); background: rgba(251,191,36,0.06); transform: translateY(-3px); }
 
+/* ═══════════ RESUME BUTTON (FANCY) ═══════════ */
+.btn-resume {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 700;
+  padding: 0.75rem 1.8rem;
+  border-radius: 3rem;
+  text-decoration: none;
+  transition: all var(--transition-smooth);
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  font-size: clamp(0.8rem, 1.2vw, 0.95rem);
+  white-space: nowrap;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+  color: #ffffff;
+  border: 2px solid transparent;
+  background-size: 200% 200%;
+  animation: gradientShift 3s ease infinite;
+}
+
+.btn-resume::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
+  transition: left 0.6s ease;
+}
+
+.btn-resume:hover::before {
+  left: 100%;
+}
+
+.btn-resume:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 18px 36px rgba(139, 92, 246, 0.45), 0 0 25px rgba(236, 72, 153, 0.3);
+  border-color: rgba(255,255,255,0.3);
+}
+
+.btn-resume i {
+  position: relative;
+  z-index: 1;
+  animation: resumeWiggle 2s ease-in-out infinite;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes resumeWiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-8deg); }
+  75% { transform: rotate(8deg); }
+}
+
 .hero-social-links { display: flex; gap: 1.2rem; justify-content: center; flex-wrap: wrap; margin-top: 2.5rem; }
 
 .social-icon-link {
@@ -911,7 +973,7 @@ a { text-decoration: none; color: inherit; }
   .hero-name { font-size: clamp(1.8rem, 8vw, 2.8rem); }
   .hero-title { font-size: 0.95rem; }
   .hero-cta-row { flex-direction: column; align-items: center; gap: 0.8rem; }
-  .btn-primary, .btn-outline { width: 100%; max-width: 280px; justify-content: center; }
+  .btn-primary, .btn-outline, .btn-resume { width: 100%; max-width: 280px; justify-content: center; }
   .hero-social-links { gap: 0.8rem; margin-top: 2rem; }
   .social-icon-link { width: 40px; height: 40px; font-size: 1rem; }
   .hero-lang-badges { gap: 0.4rem; }
