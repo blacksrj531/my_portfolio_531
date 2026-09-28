@@ -548,6 +548,110 @@ a { text-decoration: none; color: inherit; }
   50% { transform: scale(1.2); opacity: 0.8; }
 }
 
+/* ═══════════ E-WARN SYSTEMS CARD ═══════════ */
+.ewarn-card {
+  background: #0a0f1a;
+  border-color: #1a2535;
+}
+
+.ewarn-card:hover {
+  border-color: #06b6d4;
+  box-shadow: 0 28px 48px rgba(6, 182, 212, 0.3), 0 0 40px rgba(34, 211, 238, 0.15);
+}
+
+.ewarn-project-image {
+  background: linear-gradient(135deg, #0a0f1a 0%, #0d2035 30%, #1a0f2e 100%) !important;
+}
+
+.ewarn-project-image::before {
+  background: rgba(6, 182, 212, 0.08) !important;
+}
+
+.ewarn-project-image::after {
+  background: rgba(34, 211, 238, 0.1) !important;
+}
+
+.ewarn-card:hover .ewarn-project-image {
+  background: linear-gradient(135deg, #0d2035 0%, #0a0f1a 30%, #1a0f2e 100%) !important;
+}
+
+.ewarn-card:hover .ewarn-project-image::before {
+  background: rgba(6, 182, 212, 0.15) !important;
+}
+
+.ewarn-card:hover .ewarn-project-image::after {
+  background: rgba(34, 211, 238, 0.18) !important;
+}
+
+/* E-WARN Logo image */
+.ewarn-logo-img {
+  width: 160px;
+  height: auto;
+  max-height: 90px;
+  object-fit: contain;
+  position: relative;
+  z-index: 1;
+  transition: all 0.45s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  filter: drop-shadow(0 0 10px rgba(34, 211, 238, 0.5));
+  background: rgba(255, 255, 255, 0.96);
+  border-radius: 10px;
+  padding: 8px 12px;
+  box-shadow: 0 4px 12px rgba(6, 182, 212, 0.2);
+}
+
+.ewarn-card:hover .ewarn-logo-img {
+  transform: scale(1.15) rotate(-3deg);
+  filter: drop-shadow(0 0 22px rgba(6, 182, 212, 0.75)) brightness(1.05);
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0 8px 24px rgba(6, 182, 212, 0.4);
+}
+
+.ewarn-card .project-title {
+  color: #e0f2fe;
+}
+
+.ewarn-card:hover .project-title {
+  color: #22d3ee;
+}
+
+.ewarn-card .project-description {
+  color: #bae6fd;
+}
+
+.ewarn-card .project-tag {
+  background: #1a2535;
+  color: #bae6fd;
+  border: 1px solid #2d4a6e;
+}
+
+.ewarn-card:hover .project-tag {
+  background: #0d2035;
+  color: #67e8f9;
+  border-color: #06b6d4;
+}
+
+.ewarn-card .project-content {
+  background: #0a0f1a;
+}
+
+.ewarn-overlay {
+  background: rgba(10, 15, 26, 0.92) !important;
+}
+
+.ewarn-overlay i {
+  color: #22d3ee !important;
+  animation: ewarnPulse 1.5s ease-in-out infinite;
+}
+
+.ewarn-overlay span {
+  color: #67e8f9 !important;
+}
+
+@keyframes ewarnPulse {
+  0%, 100% { transform: scale(1); opacity: 1; text-shadow: 0 0 0 rgba(6, 182, 212, 0); }
+  50% { transform: scale(1.15); opacity: 0.85; text-shadow: 0 0 25px rgba(34, 211, 238, 0.7); }
+}
+
 /* ═══════════ SRJ FILE MANAGER CARD ═══════════ */
 .filemanager-card {
   background: #0a1a0a;
@@ -792,30 +896,109 @@ a { text-decoration: none; color: inherit; }
 
 @keyframes nexoraPulse { 0%, 100% { transform: scale(1); opacity: 1; text-shadow: 0 0 0 rgba(6, 182, 212, 0); } 50% { transform: scale(1.15); opacity: 0.85; text-shadow: 0 0 25px rgba(34, 211, 238, 0.7); } }
 
-/* ═══════════ SPOTIFY CARD ═══════════ */
-.spotify-card { background: var(--color-spotify-dark); border-color: var(--color-spotify-gray); }
-.spotify-card:hover { border-color: var(--color-spotify-green); box-shadow: 0 28px 48px rgba(29,185,84,0.25); }
-.spotify-project-image { background: linear-gradient(135deg, #121212 0%, #1a1a2e 30%, #0d3b1a 100%) !important; }
-.spotify-project-image::before { background: rgba(29,185,84,0.08) !important; }
-.spotify-project-image::after { background: rgba(29,185,84,0.1) !important; }
-.spotify-card:hover .spotify-project-image { background: linear-gradient(135deg, #1a1a2e 0%, #121212 30%, #0d3b1a 100%) !important; }
-.spotify-card:hover .spotify-project-image::before { background: rgba(29,185,84,0.15) !important; }
-.spotify-card:hover .spotify-project-image::after { background: rgba(29,185,84,0.18) !important; }
-.spotify-project-image .project-icon-main { color: var(--color-spotify-green); font-size: 3.2rem; }
-.spotify-card:hover .spotify-project-image .project-icon-main { color: #1ed760; filter: drop-shadow(0 0 16px rgba(29,185,84,0.5)); animation: musicBounce 0.6s ease infinite alternate; }
+/* ═══════════ GANESH PLACEMENTS CARD ═══════════ */
+.ganesh-card {
+  background: #0a1a0f;
+  border-color: #1a3a25;
+}
 
-@keyframes musicBounce { 0% { transform: scale(1) rotate(-5deg); } 100% { transform: scale(1.25) rotate(5deg); } }
-.spotify-card .project-title { color: #ffffff; }
-.spotify-card:hover .project-title { color: var(--color-spotify-green); }
-.spotify-card .project-description { color: #b3b3b3; }
-.spotify-card .project-tag { background: var(--color-spotify-gray); color: #b3b3b3; border: 1px solid #333333; }
-.spotify-card:hover .project-tag { background: #1a3a2a; color: var(--color-spotify-green); border-color: var(--color-spotify-green); }
-.spotify-card .project-content { background: var(--color-spotify-dark); }
-.spotify-overlay { background: rgba(0,0,0,0.9) !important; }
-.spotify-overlay i { color: var(--color-spotify-green) !important; animation: spotifyPulse 1.5s ease-in-out infinite; }
-.spotify-overlay span { color: var(--color-spotify-green) !important; }
+.ganesh-card:hover {
+  border-color: #22c55e;
+  box-shadow: 0 28px 48px rgba(34, 197, 94, 0.3), 0 0 40px rgba(74, 222, 128, 0.15);
+}
 
-@keyframes spotifyPulse { 0%, 100% { transform: scale(1); opacity: 1; text-shadow: 0 0 0 rgba(29,185,84,0); } 50% { transform: scale(1.15); opacity: 0.85; text-shadow: 0 0 20px rgba(29,185,84,0.6); } }
+.ganesh-project-image {
+  background: linear-gradient(135deg, #0a1a0f 0%, #103020 30%, #0a1a2e 100%) !important;
+}
+
+.ganesh-project-image::before {
+  background: rgba(34, 197, 94, 0.08) !important;
+}
+
+.ganesh-project-image::after {
+  background: rgba(74, 222, 128, 0.1) !important;
+}
+
+.ganesh-card:hover .ganesh-project-image {
+  background: linear-gradient(135deg, #103020 0%, #0a1a0f 30%, #0a1a2e 100%) !important;
+}
+
+.ganesh-card:hover .ganesh-project-image::before {
+  background: rgba(34, 197, 94, 0.15) !important;
+}
+
+.ganesh-card:hover .ganesh-project-image::after {
+  background: rgba(74, 222, 128, 0.18) !important;
+}
+
+/* Ganesh Placements logo image */
+.ganesh-logo-img {
+  width: 140px;
+  height: auto;
+  max-height: 100px;
+  object-fit: contain;
+  position: relative;
+  z-index: 1;
+  transition: all 0.45s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  filter: drop-shadow(0 0 10px rgba(34, 197, 94, 0.4));
+  background: rgba(255, 255, 255, 0.96);
+  border-radius: 10px;
+  padding: 8px 12px;
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2);
+}
+
+.ganesh-card:hover .ganesh-logo-img {
+  transform: scale(1.15) rotate(-3deg);
+  filter: drop-shadow(0 0 22px rgba(34, 197, 94, 0.75)) brightness(1.05);
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0 8px 24px rgba(34, 197, 94, 0.4);
+}
+
+.ganesh-card .project-title {
+  color: #f0fdf4;
+}
+
+.ganesh-card:hover .project-title {
+  color: #4ade80;
+}
+
+.ganesh-card .project-description {
+  color: #bbf7d0;
+}
+
+.ganesh-card .project-tag {
+  background: #1a3a25;
+  color: #bbf7d0;
+  border: 1px solid #2d5a3d;
+}
+
+.ganesh-card:hover .project-tag {
+  background: #103020;
+  color: #86efac;
+  border-color: #22c55e;
+}
+
+.ganesh-card .project-content {
+  background: #0a1a0f;
+}
+
+.ganesh-overlay {
+  background: rgba(10, 26, 15, 0.92) !important;
+}
+
+.ganesh-overlay i {
+  color: #4ade80 !important;
+  animation: ganeshPulse 1.5s ease-in-out infinite;
+}
+
+.ganesh-overlay span {
+  color: #86efac !important;
+}
+
+@keyframes ganeshPulse {
+  0%, 100% { transform: scale(1); opacity: 1; text-shadow: 0 0 0 rgba(34, 197, 94, 0); }
+  50% { transform: scale(1.15); opacity: 0.85; text-shadow: 0 0 25px rgba(74, 222, 128, 0.7); }
+}
 
 /* ═══════════ GALAXY INTERIORS CARD ═══════════ */
 .galaxy-card { background: #0a0a1a; border-color: #1a1a3a; }
@@ -995,6 +1178,8 @@ a { text-decoration: none; color: inherit; }
   .call-btn { bottom: 20px; right: 20px; }
   .floating-btn-tooltip { display: none; }
   .zuneify-logo-img { width: 80px; height: 80px; }
+  .ewarn-logo-img { width: 130px; max-height: 75px; padding: 6px 10px; }
+  .ganesh-logo-img { width: 115px; max-height: 80px; padding: 6px 10px; }
 }
 
 @media (max-width: 480px) {
@@ -1011,6 +1196,8 @@ a { text-decoration: none; color: inherit; }
   .whatsapp-btn { bottom: 16px; left: 16px; }
   .call-btn { bottom: 16px; right: 16px; }
   .zuneify-logo-img { width: 70px; height: 70px; }
+  .ewarn-logo-img { width: 110px; max-height: 65px; padding: 5px 8px; }
+  .ganesh-logo-img { width: 100px; max-height: 70px; padding: 5px 8px; }
 }
 
 @media (min-width: 1400px) {
