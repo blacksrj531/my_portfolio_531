@@ -224,7 +224,3 @@
   
   animate();
 })();
-  };
-
-  console.log('✨ Portfolio initialized successfully.');
-})();
