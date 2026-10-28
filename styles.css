@@ -734,6 +734,79 @@ a { text-decoration: none; color: inherit; }
   50% { transform: scale(1.15); opacity: 0.85; text-shadow: 0 0 25px rgba(236, 72, 153, 0.8); }
 }
 
+/* ═══════════ E-WARN SYSTEMS CARD ═══════════ */
+.ewarn-card {
+  background: #0a0f1a;
+  border-color: #1a2535;
+}
+
+.ewarn-card:hover {
+  border-color: #06b6d4;
+  box-shadow: 0 28px 48px rgba(6, 182, 212, 0.3), 0 0 40px rgba(34, 211, 238, 0.15);
+}
+
+.ewarn-project-image {
+  background: linear-gradient(135deg, #0a0f1a 0%, #0d2035 30%, #1a0f2e 100%) !important;
+}
+
+.ewarn-project-image::before {
+  background: rgba(6, 182, 212, 0.08) !important;
+}
+
+.ewarn-project-image::after {
+  background: rgba(34, 211, 238, 0.1) !important;
+}
+
+.ewarn-card:hover .ewarn-project-image {
+  background: linear-gradient(135deg, #0d2035 0%, #0a0f1a 30%, #1a0f2e 100%) !important;
+}
+
+.ewarn-card:hover .ewarn-project-image::before {
+  background: rgba(6, 182, 212, 0.15) !important;
+}
+
+.ewarn-card:hover .ewarn-project-image::after {
+  background: rgba(34, 211, 238, 0.18) !important;
+}
+
+.ewarn-logo-img {
+  width: 160px;
+  height: auto;
+  max-height: 90px;
+  object-fit: contain;
+  position: relative;
+  z-index: 1;
+  transition: all 0.45s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  filter: drop-shadow(0 0 10px rgba(34, 211, 238, 0.5));
+  background: rgba(255, 255, 255, 0.96);
+  border-radius: 10px;
+  padding: 8px 12px;
+  box-shadow: 0 4px 12px rgba(6, 182, 212, 0.2);
+}
+
+.ewarn-card:hover .ewarn-logo-img {
+  transform: scale(1.15) rotate(-3deg);
+  filter: drop-shadow(0 0 22px rgba(6, 182, 212, 0.75)) brightness(1.05);
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0 8px 24px rgba(6, 182, 212, 0.4);
+}
+
+.ewarn-card .project-title { color: #e0f2fe; }
+.ewarn-card:hover .project-title { color: #22d3ee; }
+.ewarn-card .project-description { color: #bae6fd; }
+.ewarn-card .project-tag { background: #1a2535; color: #bae6fd; border: 1px solid #2d4a6e; }
+.ewarn-card:hover .project-tag { background: #0d2035; color: #67e8f9; border-color: #06b6d4; }
+.ewarn-card .project-content { background: #0a0f1a; }
+.ewarn-overlay { background: rgba(10, 15, 26, 0.92) !important; }
+.ewarn-overlay i { color: #22d3ee !important; animation: ewarnPulse 1.5s ease-in-out infinite; }
+.ewarn-overlay span { color: #67e8f9 !important; }
+
+@keyframes ewarnPulse {
+  0%, 100% { transform: scale(1); opacity: 1; text-shadow: 0 0 0 rgba(6, 182, 212, 0); }
+  50% { transform: scale(1.15); opacity: 0.85; text-shadow: 0 0 25px rgba(34, 211, 238, 0.7); }
+}
+
+
 /* ═══════════ SAAS WORKFLOW CARD ═══════════ */
 .saas-card { background: #0a0f1c; border-color: #1a2540; }
 .saas-card:hover { border-color: #f97316; box-shadow: 0 28px 48px rgba(249, 115, 22, 0.3), 0 0 40px rgba(251, 146, 60, 0.15); }
