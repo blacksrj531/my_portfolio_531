@@ -108,6 +108,118 @@ section[class^="section-"],
   background: radial-gradient(circle at 82% 12%, rgba(255, 253, 230, 0.45) 0%, rgba(255, 240, 210, 0.15) 35%, transparent 70%);
   pointer-events: none;
   z-index: 2;
+  transition: background 1.2s ease, opacity 1.2s ease;
+}
+
+/* ==========================================================================
+   ATMOSPHERIC OPTICS ENGINE: GLASS RAINDROPS, SUNBEAMS & FOG
+   ========================================================================== */
+.weather-glass-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 3;
+  overflow: hidden;
+}
+
+/* 1. Volumetric God-Ray Sunrays (Morning & Noon) */
+.sunray-layer {
+  position: absolute;
+  top: -20vh;
+  right: -10vw;
+  width: 90vw;
+  height: 90vh;
+  background: conic-gradient(
+    from 135deg at 80% 20%,
+    transparent 0deg,
+    rgba(255, 250, 220, 0.08) 12deg,
+    transparent 24deg,
+    rgba(255, 245, 200, 0.14) 38deg,
+    transparent 50deg,
+    rgba(255, 240, 180, 0.07) 65deg,
+    transparent 85deg
+  );
+  filter: blur(28px);
+  opacity: 0;
+  transform: rotate(-10deg);
+  transition: opacity 1.5s ease;
+  mix-blend-mode: screen;
+}
+.active-sunrays .sunray-layer {
+  opacity: 1;
+  animation: sunrayShimmer 14s ease-in-out infinite alternate;
+}
+@keyframes sunrayShimmer {
+  0% { transform: rotate(-10deg) scale(0.98); opacity: 0.75; }
+  100% { transform: rotate(-6deg) scale(1.04); opacity: 1; }
+}
+
+/* 2. Atmospheric Drifting Dawn Mist */
+.mist-layer {
+  position: absolute;
+  bottom: 0;
+  left: -20vw;
+  width: 140vw;
+  height: 45vh;
+  background: radial-gradient(ellipse at 50% 100%, rgba(224, 242, 254, 0.42) 0%, rgba(186, 230, 253, 0.18) 55%, transparent 80%);
+  filter: blur(45px);
+  opacity: 0;
+  transition: opacity 1.8s ease;
+  pointer-events: none;
+}
+.active-mist .mist-layer {
+  opacity: 1;
+  animation: mistDrift 22s ease-in-out infinite alternate;
+}
+@keyframes mistDrift {
+  0% { transform: translateX(0) scaleY(1); }
+  100% { transform: translateX(6vw) scaleY(1.15); }
+}
+
+/* 3. Ultra-Realistic Glass Raindrops Container (5-7 drops on glass) */
+.raindrops-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+.active-rain .raindrops-container {
+  opacity: 1;
+}
+
+/* Individual Realistic Glass Droplet with Refraction Specular Highlight */
+.glass-raindrop {
+  position: absolute;
+  width: 6px;
+  height: 14px;
+  background: radial-gradient(circle at 35% 25%, rgba(255, 255, 255, 0.95) 0%, rgba(220, 240, 255, 0.6) 40%, rgba(140, 180, 220, 0.25) 85%);
+  border-radius: 50% 50% 60% 60% / 60% 60% 40% 40%;
+  box-shadow: 
+    0 2px 4px rgba(15, 23, 42, 0.22),
+    inset 0 1px 2px rgba(255, 255, 255, 0.8),
+    inset 0 -1px 2px rgba(30, 60, 90, 0.35);
+  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.15));
+  will-change: transform, opacity;
+  transform: translate3d(0, 0, 0);
+}
+
+/* Fine Condensation Trace Trickle Tail */
+.glass-raindrop-tail {
+  position: absolute;
+  top: -24px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1.5px;
+  height: 24px;
+  background: linear-gradient(180deg, transparent 0%, rgba(255, 255, 255, 0.35) 60%, rgba(255, 255, 255, 0.7) 100%);
+  border-radius: 999px;
+  opacity: 0.75;
 }
 
 /* ═══════════ LUXURY CURSOR (DESKTOP ONLY) ═══════════ */

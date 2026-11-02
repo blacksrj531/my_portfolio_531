@@ -424,7 +424,12 @@
     return season;
   }
 
-  // Chronobiological Time-of-Day phase
+  // Chronobiological Time-of-Day phase (Fractional Hour support: strict table priority)
+  // 04:00 AM - 06:59 AM => DAWN (Mist)
+  // 07:00 AM - 11:59 AM => MORNING (Crisp Azure)
+  // 12:00 PM - 04:29 PM => NOON (Sun Yellow)
+  // 04:30 PM - 07:29 PM => SUNSET (Dusk Crimson & Apricot Gold)
+  // 07:30 PM - 03:59 AM => NIGHT (Cosmic Space Obsidian)
   function getLocalTimePhase(hour) {
     if (hour >= 4 && hour < 7) return 'dawn';
     if (hour >= 7 && hour < 12) return 'morning';
@@ -433,7 +438,111 @@
     return 'night';
   }
 
-  function applyAtmosphere(paletteKey) {
+  // ═════════════════════════════════════════════════════════════════════════
+  // ATMOSPHERIC OPTICS ENGINE: RAINDROPS (5-7 drops), GOD-RAYS & DAWN MIST
+  // ═════════════════════════════════════════════════════════════════════════
+  const weatherGlassOverlay = document.getElementById('weatherGlassOverlay');
+  const raindropsContainer = document.getElementById('raindropsContainer');
+  let activeRaindrops = [];
+  let rainAnimationId = null;
+
+  function initRainEngine() {
+    if (!raindropsContainer) return;
+    raindropsContainer.innerHTML = '';
+    activeRaindrops = [];
+
+    // Create 6 realistic glass raindrops spaced across the viewport width
+    const dropCount = 6;
+    const screenW = window.innerWidth;
+    const screenH = window.innerHeight;
+
+    for (let i = 0; i < dropCount; i++) {
+      const dropEl = document.createElement('div');
+      dropEl.className = 'glass-raindrop';
+      
+      const tailEl = document.createElement('div');
+      tailEl.className = 'glass-raindrop-tail';
+      dropEl.appendChild(tailEl);
+
+      raindropsContainer.appendChild(dropEl);
+
+      activeRaindrops.push({
+        el: dropEl,
+        tail: tailEl,
+        x: (screenW * 0.1) + ((screenW * 0.8) * (i / (dropCount - 1))) + ((Math.random() - 0.5) * 60),
+        y: Math.random() * (screenH * 0.8),
+        speed: 0.85 + Math.random() * 0.95,
+        pauseCounter: Math.floor(Math.random() * 80),
+        scale: 0.8 + Math.random() * 0.45
+      });
+    }
+
+    if (!rainAnimationId) {
+      animateRain();
+    }
+  }
+
+  function animateRain() {
+    const screenH = window.innerHeight;
+    const screenW = window.innerWidth;
+
+    activeRaindrops.forEach((drop) => {
+      // Surface-tension micro pauses
+      if (drop.pauseCounter > 0) {
+        drop.pauseCounter--;
+      } else {
+        drop.y += drop.speed;
+        if (Math.random() < 0.008) {
+          drop.pauseCounter = Math.floor(15 + Math.random() * 45);
+        }
+      }
+
+      if (drop.y > screenH + 40) {
+        drop.y = -30;
+        drop.x = Math.random() * (screenW * 0.9) + (screenW * 0.05);
+        drop.speed = 0.85 + Math.random() * 0.95;
+        drop.pauseCounter = Math.floor(Math.random() * 50);
+      }
+
+      drop.el.style.transform = `translate3d(${drop.x}px, ${drop.y}px, 0) scale(${drop.scale})`;
+    });
+
+    if (weatherGlassOverlay && weatherGlassOverlay.classList.contains('active-rain')) {
+      rainAnimationId = requestAnimationFrame(animateRain);
+    } else {
+      rainAnimationId = null;
+    }
+  }
+
+  function setAtmosphericOptics(isRaining, timePhase) {
+    if (!weatherGlassOverlay) return;
+
+    // 1. Rain Droplets
+    if (isRaining) {
+      if (!weatherGlassOverlay.classList.contains('active-rain')) {
+        weatherGlassOverlay.classList.add('active-rain');
+        initRainEngine();
+      }
+    } else {
+      weatherGlassOverlay.classList.remove('active-rain');
+    }
+
+    // 2. Volumetric Sunbeam God-Rays (Morning & Noon)
+    if (timePhase === 'morning' || timePhase === 'noon') {
+      weatherGlassOverlay.classList.add('active-sunrays');
+    } else {
+      weatherGlassOverlay.classList.remove('active-sunrays');
+    }
+
+    // 3. Drifting Dawn Mist
+    if (timePhase === 'dawn') {
+      weatherGlassOverlay.classList.add('active-mist');
+    } else {
+      weatherGlassOverlay.classList.remove('active-mist');
+    }
+  }
+
+  function applyAtmosphere(paletteKey, isRaining = false) {
     activePalette = IRIDESCENT_PALETTES[paletteKey] || IRIDESCENT_PALETTES.morning;
 
     document.body.classList.remove(
@@ -449,11 +558,12 @@
       fluidMaterial.uniforms.uColorD.value.copy(activePalette.colorD);
       fluidMaterial.uniforms.uExposure.value = activePalette.exposure;
       if (fluidMaterial.uniforms.uRainActive) {
-        fluidMaterial.uniforms.uRainActive.value = activePalette.rainActive || 0.0;
+        fluidMaterial.uniforms.uRainActive.value = (isRaining || paletteKey === 'rain') ? 1.0 : 0.0;
       }
     }
 
-
+    // Update atmospheric overlays (glass raindrops, god-rays, dawn mist)
+    setAtmosphericOptics(isRaining || paletteKey === 'rain', paletteKey);
   }
 
   // ─────────────────────────────────────────────────────────────────────────
@@ -488,27 +598,17 @@
     }
   }
 
-  // Resolves the exact palette key based on time, weather condition, temperature and season
+// Resolves the exact palette key based on time, weather condition, temperature and season
+  // The WebGL flowing river background is strictly bound to the 5 chronobiological schedule phases.
+  // Rain/weather is decoupled as an atmospheric glass particle overlay on top of the river.
   function resolveTargetPaletteKey(timePhase, weatherCondition, tempC, season) {
-    // 1. Extreme weather override
-    if (weatherCondition === 'rain') return 'rain';
-    if (weatherCondition === 'snow' || (tempC !== null && tempC <= 3)) return 'snow';
-    if (weatherCondition === 'fog' || timePhase === 'dawn') return 'dawn';
-
-    // 2. Cosmic Space Night override
+    // Strict adherence to the 5-phase chronobiological schedule
+    if (timePhase === 'dawn') return 'dawn';
+    if (timePhase === 'morning') return 'morning';
+    if (timePhase === 'noon') return 'noon';
+    if (timePhase === 'sunset') return 'sunset';
     if (timePhase === 'night') return 'night';
 
-    // 3. Sunset / Twilight Reddish Amber
-    if (timePhase === 'sunset') return 'sunset';
-
-    // 4. Noon / Bright Sun Yellow Flare
-    if (timePhase === 'noon') return 'noon';
-
-    // 5. Morning / Spring / Winter daytime nuances
-    if (season === 'spring') return 'spring';
-    if (season === 'winter') return 'snow';
-
-    // Standard crisp morning
     return 'morning';
   }
 
@@ -537,19 +637,19 @@
       const stored = sessionStorage.getItem(CACHE_KEY);
       if (stored) {
         const parsed = JSON.parse(stored);
-        if (Date.now() - parsed.timestamp < 15 * 60 * 1000) {
+        if (Date.now() - parsed.timestamp < 15 * 60 * 1000 && parsed.timePhase === timePhase) {
           stateStr = parsed.stateStr || stateStr;
           countryStr = parsed.countryStr || countryStr;
           tempStr = parsed.tempStr || tempStr;
           conditionDesc = parsed.conditionDesc || conditionDesc;
           weatherCondition = parsed.weatherCondition || weatherCondition;
-          timePhase = parsed.isNight ? 'night' : timePhase;
           season = parsed.season || season;
           tempC = parsed.tempC !== undefined ? parsed.tempC : tempC;
 
           const key = resolveTargetPaletteKey(timePhase, weatherCondition, tempC, season);
+          const isRaining = (weatherCondition === 'rain');
           currentTelemetryState = { stateStr, countryStr, tempStr, conditionDesc, activeKey: key, season, isNight: timePhase === 'night' };
-          applyAtmosphere(key);
+          applyAtmosphere(key, isRaining);
           renderHUD(stateStr, countryStr, tempStr, conditionDesc, key);
           return;
         }
@@ -557,7 +657,7 @@
     } catch (e) {}
 
     let initialKey = resolveTargetPaletteKey(timePhase, weatherCondition, tempC, season);
-    applyAtmosphere(initialKey);
+    applyAtmosphere(initialKey, weatherCondition === 'rain');
     renderHUD(stateStr, countryStr, tempStr, conditionDesc, initialKey);
 
     let fetchedSuccess = false;
@@ -582,7 +682,8 @@
               tempC = Math.round(omData.current.temperature_2m);
               tempStr = `${tempC}°C`;
               const code = omData.current.weather_code;
-              timePhase = omData.current.is_day === 0 ? 'night' : getLocalTimePhase(localHour);
+              // Keep chronobiological local schedule intact:
+              timePhase = getLocalTimePhase(localHour);
 
               if ([51,53,55,61,63,65,80,81,82,95,96].includes(code)) {
                 weatherCondition = 'rain';
@@ -641,11 +742,13 @@
         conditionDesc,
         weatherCondition,
         season,
+        timePhase,
         isNight: timePhase === 'night'
       }));
     } catch (e) {}
 
-    applyAtmosphere(finalKey);
+    const isRainingFinal = (weatherCondition === 'rain');
+    applyAtmosphere(finalKey, isRainingFinal);
     renderHUD(stateStr, countryStr, tempStr, conditionDesc, finalKey);
   }
 
@@ -663,7 +766,8 @@
     weatherCapsule.addEventListener('click', () => {
       manualPreviewIndex = (manualPreviewIndex + 1) % PREVIEW_CYCLES.length;
       const previewKey = PREVIEW_CYCLES[manualPreviewIndex];
-      applyAtmosphere(previewKey);
+      const isPreviewRain = (previewKey === 'rain');
+      applyAtmosphere(previewKey, isPreviewRain);
       renderHUD(
         currentTelemetryState.stateStr, 
         currentTelemetryState.countryStr, 
