@@ -170,6 +170,7 @@
   let rippleBurst = 0.0;
 
   const vertexShader = `
+    precision highp float;
     varying vec2 vUv;
     varying vec3 vPosition;
     varying vec3 vNormal;
@@ -201,11 +202,17 @@
 
   // Fractal Brownian Motion (FBM) with Domain Warping & Electric Blue Iridescence
   const fragmentShader = `
+    #ifdef GL_FRAGMENT_PRECISION_HIGH
+      precision highp float;
+    #else
+      precision mediump float;
+    #endif
     varying vec2 vUv;
     varying vec3 vPosition;
     varying vec3 vNormal;
     uniform float uTime;
     uniform vec2 uMouse;
+    uniform vec2 uResolution;
     uniform vec3 uColorA;
     uniform vec3 uColorB;
     uniform vec3 uColorC;
@@ -253,7 +260,9 @@
     }
 
     void main() {
-      vec2 st = vUv * 2.8;
+      // Aspect-ratio normalized coordinates (prevents vertical stretching on tall mobile screens)
+      float aspect = (uResolution.y > 0.0) ? (uResolution.x / uResolution.y) : 1.0;
+      vec2 st = vec2((vUv.x - 0.5) * max(aspect, 0.65) + 0.5, vUv.y) * 2.8;
       
       // Domain warping vectors
       vec2 q = vec2(
@@ -797,11 +806,12 @@
         antialias: false,
         alpha: true,
         powerPreference: 'default',
-        precision: isMobile ? 'mediump' : 'highp'
+        precision: 'highp'
       });
       renderer.setSize(window.innerWidth, window.innerHeight);
 
-      const baseDPR = Math.min(window.devicePixelRatio || 1, isMobile ? 1.0 : 1.25);
+      // Mobile high-DPI retina sharpness (up to 1.75 for crisp organic curves without battery drain)
+      const baseDPR = Math.min(window.devicePixelRatio || 1, isMobile ? 1.75 : 1.5);
       renderer.setPixelRatio(baseDPR);
       webglContainer.appendChild(renderer.domElement);
 
@@ -830,6 +840,7 @@
           uTime: { value: 0 },
           uScroll: { value: 0 },
           uMouse: { value: new THREE.Vector2(0.5, 0.5) },
+          uResolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
           uRipple: { value: 0 },
           uRainActive: { value: 0.0 },
           uColorA: { value: activePalette.colorA },
@@ -861,6 +872,9 @@
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
+      if (fluidMaterial && fluidMaterial.uniforms && fluidMaterial.uniforms.uResolution) {
+        fluidMaterial.uniforms.uResolution.value.set(window.innerWidth, window.innerHeight);
+      }
 
       if (fluidMesh) {
         const dist = camera.position.z - (-1.0);
