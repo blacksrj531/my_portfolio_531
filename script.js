@@ -1204,6 +1204,18 @@
      * When rotated, items glide along the thumb arc smoothly.
      */
     function updateRotaryDial(offset) {
+      // If on desktop (> 900px), reset all items for horizontal dock flow and restore pointer-events
+      if (window.innerWidth > 900) {
+        orbitItems.forEach((item) => {
+          item.style.removeProperty('--orbit-x');
+          item.style.removeProperty('--orbit-y');
+          item.style.removeProperty('--badge-opacity');
+          item.style.removeProperty('--badge-scale');
+          item.style.pointerEvents = 'auto';
+        });
+        return;
+      }
+
       // Visible span covers North-West arc: from 185deg (left) up to 265deg (top)
       const arcStart = 185; 
       const arcEnd = 265;
@@ -1317,6 +1329,11 @@
       playGlassChime(1.2);
       updateRotaryDial(dialOffset);
     }, { passive: false });
+
+    // Synchronize dock layout on window resize
+    window.addEventListener('resize', () => {
+      updateRotaryDial(dialOffset);
+    }, { passive: true });
 
     // Initial positioning
     updateRotaryDial(0);

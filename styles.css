@@ -2701,6 +2701,7 @@ body.theme-night .weather-detail {
 
   /* Developer & Creative Profiles */
   .dock-items-wrapper .dock-github i { color: #0f172a !important; font-size: 1.45rem !important; }
+  .dock-items-wrapper .dock-researchgate i { color: #00ccbb !important; font-size: 1.35rem !important; }
   .dock-items-wrapper .dock-leetcode i { color: #f59e0b !important; font-size: 1.3rem !important; }
   .dock-items-wrapper .dock-linkedin i { color: #0a66c2 !important; font-size: 1.4rem !important; }
   .dock-items-wrapper .dock-instagram i { color: #e1306c !important; font-size: 1.4rem !important; }
