@@ -2701,6 +2701,7 @@ body.theme-night .weather-detail {
 
   /* Developer & Creative Profiles */
   .dock-items-wrapper .dock-github i { color: #0f172a !important; font-size: 1.45rem !important; }
+  .dock-items-wrapper .dock-orcid i { color: #a6ce39 !important; font-size: 1.4rem !important; }
   .dock-items-wrapper .dock-researchgate i { color: #00ccbb !important; font-size: 1.35rem !important; }
   .dock-items-wrapper .dock-leetcode i { color: #f59e0b !important; font-size: 1.3rem !important; }
   .dock-items-wrapper .dock-linkedin i { color: #0a66c2 !important; font-size: 1.4rem !important; }
@@ -2739,4 +2740,23 @@ body.theme-night .unified-action-dock.is-open .mobile-dock-trigger {
 }
 body.theme-night .unified-action-dock.is-open .hamburger-line {
   background-color: #020617 !important;
+}
+
+/* ORCID Footer Link & Badge Optics */
+.orcid-footer-link {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.45rem !important;
+}
+
+.orcid-icon-img {
+  width: 14px;
+  height: 14px;
+  vertical-align: middle;
+  border-radius: 2px;
+  transition: transform 0.25s ease;
+}
+
+.orcid-footer-link:hover .orcid-icon-img {
+  transform: scale(1.15);
 }
